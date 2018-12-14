@@ -43,6 +43,11 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         productViewHolder.bind(item, productViewHolder.itemView);
     }
 
+    public void filterList(ArrayList<Item> filteredItems) {
+        this.itemArrayList = filteredItems;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return itemArrayList.size();

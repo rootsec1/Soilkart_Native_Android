@@ -8,6 +8,7 @@
     tools:context=".Activities.CartActivity">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cartCardView"
         app:cardUseCompatPadding="true"
         app:cardBackgroundColor="@android:color/white"
         android:layout_width="match_parent"
@@ -19,6 +20,46 @@
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/cartCardView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_marginTop="8dp"
+            android:background="@color/colorTextDark"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <LinearLayout
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:fontFamily="@font/comfortaa_regular"
+                android:textSize="20sp"
+                android:textColor="@color/colorTextDark"
+                android:text="Grand Total: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/cartGrandTotalTextView"
+                android:fontFamily="@font/comfortaa_light"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="16dp"
+                android:textSize="24sp"
+                tools:text="\u20b9 300"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:src="@drawable/ic_navigate_next_white_24dp"

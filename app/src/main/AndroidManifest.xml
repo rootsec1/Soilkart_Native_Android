@@ -28,7 +28,17 @@
         <activity
             android:name=".Activities.SearchActivity"
             android:label="Search"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:parentActivityName=".Activities.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".Activities.SearchActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity android:name=".Activities.CartActivity" android:label="Cart" android:parentActivityName=".Activities.MainActivity" />
     </application>
 
