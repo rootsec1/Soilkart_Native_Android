@@ -24,9 +24,12 @@
         <activity
             android:name=".Activities.SignInActivity"
             android:theme="@style/SignInAppTheme" />
+        <activity android:name=".Activities.MainActivity" />
         <activity
-            android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.SearchActivity" android:parentActivityName=".Activities.MainActivity" android:label="Search" />
+            android:name=".Activities.SearchActivity"
+            android:label="Search"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity android:name=".Activities.CartActivity" android:label="Cart" android:parentActivityName=".Activities.MainActivity" />
     </application>
 
 </manifest>

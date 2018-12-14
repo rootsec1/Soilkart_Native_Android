@@ -6,10 +6,19 @@
         android:id="@+id/menuItemSearch"
         android:icon="@drawable/ic_search_white_24dp"
         android:title="Search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/menuItemCart"
         android:icon="@drawable/ic_shopping_cart_white_24dp"
         android:title="Cart"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menuItemOrders"
+        android:title="Orders" />
+    <item
+        android:id="@+id/menuItemSettings"
+        android:title="Settings" />
+    <item
+        android:id="@+id/menuItemSignOut"
+        android:title="Sign Out" />
 </menu>

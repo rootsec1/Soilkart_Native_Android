@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.github.abhishekwl.soilkart.Activities.MainActivity;
 import io.github.abhishekwl.soilkart.Adapters.ProductRecyclerViewAdapter;
 import io.github.abhishekwl.soilkart.Models.Item;
 import io.github.abhishekwl.soilkart.R;
@@ -53,13 +55,22 @@ public class CategoryFragment extends Fragment {
     private void initializeComponents() {
         unbinder = ButterKnife.bind(CategoryFragment.this, rootView);
         itemArrayList = new ArrayList<>();
+        itemArrayList = ((MainActivity)Objects.requireNonNull(getActivity())).getAllItemsArrayList();
+        itemArrayList = filterArrayList(itemArrayList);
         productRecyclerViewAdapter = new ProductRecyclerViewAdapter(rootView.getContext(), itemArrayList);
+    }
+
+    private ArrayList<Item> filterArrayList(ArrayList<Item> itemArrayList) {
+        ArrayList<Item> filteredItemArrayList = new ArrayList<>();
+        for (Item item: itemArrayList) if (item.getCategory().equalsIgnoreCase(categoryName)) filteredItemArrayList.add(item);
+        return filteredItemArrayList;
     }
 
     private void initializeViews() {
         categoryItemsRecyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         categoryItemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        categoryItemsRecyclerView.addItemDecoration(new DividerItemDecoration(rootView.getContext(), DividerItemDecoration.VERTICAL));
+        categoryItemsRecyclerView.addItemDecoration(new DividerItemDecoration(rootView.getContext(), RecyclerView.VERTICAL));
+        categoryItemsRecyclerView.setHasFixedSize(true);
         categoryItemsRecyclerView.setAdapter(productRecyclerViewAdapter);
     }
 
