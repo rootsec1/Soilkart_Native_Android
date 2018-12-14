@@ -25,8 +25,8 @@
             android:name=".Activities.SignInActivity"
             android:theme="@style/SignInAppTheme" />
         <activity
-            android:name=".Activities.MainActivity"
-            android:theme="@style/MainActivityTheme" />
+            android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.SearchActivity" android:parentActivityName=".Activities.MainActivity" android:label="Search" />
     </application>
 
 </manifest>
