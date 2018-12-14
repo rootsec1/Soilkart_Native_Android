@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".Activities.SignInActivity">
+    <LinearLayout
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.airbnb.lottie.LottieAnimationView
+            app:lottie_fileName="lottie/work.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_marginTop="24dp"
+            android:layout_width="196dp"
+            android:layout_height="196dp" />
+
+        <TextView
+            android:textColor="@color/colorTextDark"
+            android:fontFamily="@font/comfortaa_bold"
+            android:textSize="64sp"
+            android:text="Welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:fontFamily="@font/comfortaa_light"
+            android:textSize="24sp"
+            android:textColor="@android:color/tab_indicator_text"
+            android:text="Sign in to continue :)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/signInEmailAddressEditText"
+                android:inputType="textEmailAddress"
+                android:hint="EMAIL ADDRESS"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-light"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/signInPasswordEditText"
+                android:inputType="textPassword"
+                android:hint="PASSWORD"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-light"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/signInButton"
+            android:fontFamily="@font/comfortaa_regular"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:text="Sign In"
+            android:padding="8dp"
+            android:textAllCaps="false"
+            android:background="@color/colorPrimaryExtraDark"
+            android:layout_marginTop="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>

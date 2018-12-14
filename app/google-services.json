@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "968338824712",
+    "firebase_url": "https://soilkart-3d137.firebaseio.com",
+    "project_id": "soilkart-3d137",
+    "storage_bucket": "soilkart-3d137.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968338824712:android:7b9d0a71c68edb50",
+        "android_client_info": {
+          "package_name": "io.github.abhishekwl.soilkart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968338824712-h8dcgm571v1avkp6e0icvvqrm14d3ggc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.abhishekwl.soilkart",
+            "certificate_hash": "498fb10a8b0a12aa02c13148d87a1fab3ae347d8"
+          }
+        },
+        {
+          "client_id": "968338824712-5ghi7s1npq405se0up6bgf91omoj0l42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCby_Pq8YAkW4rhN3wbYEI4wd4QAfOhDUI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968338824712-5ghi7s1npq405se0up6bgf91omoj0l42.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
