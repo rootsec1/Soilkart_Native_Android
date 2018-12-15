@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -120,9 +121,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<Item> itemArrayList) {
             super.onPostExecute(itemArrayList);
-            Intent cartIntent = new Intent(MainActivity.this, CartActivity.class);
-            cartIntent.putExtra("ITEMS", itemArrayList);
-            startActivity(cartIntent);
+            if (itemArrayList==null || itemArrayList.isEmpty())
+                Snackbar.make(mainViewPager, "You have no items in your cart :(", Snackbar.LENGTH_LONG)
+                .setAction("DISMISS", v -> {})
+                .setActionTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent))
+                .show();
+            else {
+                Intent cartIntent = new Intent(MainActivity.this, CartActivity.class);
+                cartIntent.putExtra("ITEMS", itemArrayList);
+                startActivity(cartIntent);
+            }
         }
     }
 
@@ -145,6 +153,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menuItemSignOut:
                 firebaseAuth.signOut();
+                break;
+            case R.id.menuItemOrders:
+                startActivity(new Intent(MainActivity.this, OrdersActivity.class));
                 break;
         }
         return true;

@@ -1,8 +1,10 @@
 package io.github.abhishekwl.soilkart.Activities;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -10,12 +12,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.github.abhishekwl.soilkart.Adapters.CartRecyclerViewAdapter;
 import io.github.abhishekwl.soilkart.Helpers.RetrofitApiClient;
@@ -35,6 +39,8 @@ public class CartActivity extends AppCompatActivity {
     private RetrofitApiInterface retrofitApiInterface;
     private ArrayList<Item> itemArrayList = new ArrayList<>();
     private CartRecyclerViewAdapter cartRecyclerViewAdapter;
+    private MaterialDialog materialDialog;
+    private double rawTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class CartActivity extends AppCompatActivity {
         protected Double doInBackground(ArrayList<Item>... arrayLists) {
             double total = 0;
             for (Item item: arrayLists[0]) total += (item.getPrice()-(item.getDiscountPercentage()*item.getPrice())) * item.getQuantity();
+            rawTotal = total;
             return total;
         }
 
@@ -77,6 +84,31 @@ public class CartActivity extends AppCompatActivity {
         protected void onPostExecute(Double aDouble) {
             super.onPostExecute(aDouble);
             grandTotalTextView.setText("\u20b9 ".concat(Double.toString(aDouble)));
+        }
+    }
+
+    @OnClick(R.id.cartCheckoutFab)
+    public void onCheckoutButtonPress() {
+        if (rawTotal==0) {
+            Snackbar.make(itemsRecyclerView, "You have no items in your cart to checkout :(", Snackbar.LENGTH_LONG)
+                    .addCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            super.onDismissed(transientBottomBar, event);
+                            finish();
+                        }
+                    }).show();
+        } else {
+            materialDialog = new MaterialDialog.Builder(CartActivity.this)
+                    .title(R.string.app_name)
+                    .content("The amount payable is "+Double.toString(rawTotal)+".\nAre you sure you want to checkout?")
+                    .positiveText("YES")
+                    .negativeText("NO")
+                    .titleColor(Color.BLACK)
+                    .contentColorRes(R.color.colorTextDark)
+                    .positiveColorRes(R.color.colorPrimaryDark)
+                    .negativeColorRes(android.R.color.tab_indicator_text)
+                    .show();
         }
     }
 
