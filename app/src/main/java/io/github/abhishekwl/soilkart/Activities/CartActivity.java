@@ -22,10 +22,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.github.abhishekwl.soilkart.Adapters.CartRecyclerViewAdapter;
+import io.github.abhishekwl.soilkart.Helpers.Constants;
 import io.github.abhishekwl.soilkart.Helpers.RetrofitApiClient;
 import io.github.abhishekwl.soilkart.Helpers.RetrofitApiInterface;
 import io.github.abhishekwl.soilkart.Models.Item;
+import io.github.abhishekwl.soilkart.Models.Order;
 import io.github.abhishekwl.soilkart.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -68,6 +73,39 @@ public class CartActivity extends AppCompatActivity {
         itemsRecyclerView.setAdapter(cartRecyclerViewAdapter);
     }
 
+    private void checkout() {
+        materialDialog = new MaterialDialog.Builder(CartActivity.this)
+                .title(R.string.app_name)
+                .content("Requesting new order")
+                .progress(true, 0)
+                .titleColor(Color.BLACK)
+                .contentColorRes(R.color.colorTextDark)
+                .show();
+        retrofitApiInterface.createNewOrder(firebaseAuth.getUid(), itemArrayList).enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(Call<Order> call, Response<Order> response) {
+                if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+                if (response.body()!=null) postOrderCreation(response.body());
+                else Snackbar.make(itemsRecyclerView, "There has been an error requesting a new order. Please try again later :(", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<Order> call, Throwable t) {
+                if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+                Snackbar.make(itemsRecyclerView, t.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void postOrderCreation(Order currentOrder) {
+        materialDialog = new MaterialDialog.Builder(CartActivity.this)
+                .title(R.string.app_name)
+                .content(currentOrder.toString())
+                .titleColor(Color.BLACK)
+                .contentColorRes(R.color.colorTextDark)
+                .show();
+    }
+
     @SuppressLint("StaticFieldLeak")
     private class ComputeGrandTotal extends AsyncTask<ArrayList<Item>, Void, Double> {
 
@@ -75,6 +113,7 @@ public class CartActivity extends AppCompatActivity {
         protected Double doInBackground(ArrayList<Item>... arrayLists) {
             double total = 0;
             for (Item item: arrayLists[0]) total += (item.getPrice()-(item.getDiscountPercentage()*item.getPrice())) * item.getQuantity();
+            total += (Constants.DELIVERY_CHARGE_PERCENTAGE*total) + total;
             rawTotal = total;
             return total;
         }
@@ -108,6 +147,8 @@ public class CartActivity extends AppCompatActivity {
                     .contentColorRes(R.color.colorTextDark)
                     .positiveColorRes(R.color.colorPrimaryDark)
                     .negativeColorRes(android.R.color.tab_indicator_text)
+                    .onPositive((dialog, which) -> checkout())
+                    .onNegative((dialog, which) -> dialog.dismiss())
                     .show();
         }
     }
