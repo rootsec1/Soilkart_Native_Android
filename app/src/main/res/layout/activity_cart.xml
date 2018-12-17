@@ -35,29 +35,88 @@
             android:layout_width="match_parent"
             android:layout_height="1dp" />
         <LinearLayout
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:fontFamily="@font/comfortaa_regular"
-                android:textSize="20sp"
-                android:textColor="@color/colorTextDark"
-                android:text="Grand Total: "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/cartGrandTotalTextView"
-                android:fontFamily="@font/comfortaa_light"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginStart="16dp"
-                android:textSize="24sp"
-                tools:text="\u20b9 300"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:fontFamily="@font/comfortaa_regular"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorTextDark"
+                    android:text="GST:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/cartGstTextView"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="16dp"
+                    android:textSize="24sp"
+                    tools:text="10%"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:fontFamily="@font/comfortaa_regular"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorTextDark"
+                    android:text="Delivery Charges:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/cartDeliveryChargesTextView"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="16dp"
+                    android:textSize="24sp"
+                    tools:text="15%"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:fontFamily="@font/comfortaa_regular"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorTextDark"
+                    android:text="Grand Total:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/cartGrandTotalTextView"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginStart="16dp"
+                    android:textSize="24sp"
+                    tools:text="\u20b9 300"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

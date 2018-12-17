@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +40,14 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView itemsRecyclerView;
     @BindView(R.id.cartGrandTotalTextView)
     TextView grandTotalTextView;
+    @BindView(R.id.cartCardView)
+    CardView cartCardView;
+    @BindView(R.id.cartGstTextView)
+    TextView cartGstTextView;
+    @BindView(R.id.cartDeliveryChargesTextView)
+    TextView cartDeliveryChargesTextView;
+    @BindView(R.id.cartCheckoutFab)
+    FloatingActionButton cartCheckoutFab;
 
     private Unbinder unbinder;
     private FirebaseAuth firebaseAuth;
@@ -65,7 +75,10 @@ public class CartActivity extends AppCompatActivity {
         new ComputeGrandTotal().execute(itemArrayList);
     }
 
+    @SuppressLint("SetTextI18n")
     private void initializeViews() {
+        cartGstTextView.setText(Double.toString(Constants.GST_PERCENTAGE).concat("%"));
+        cartDeliveryChargesTextView.setText(Double.toString(Constants.DELIVERY_CHARGE_PERCENTAGE).concat("%"));
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         itemsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         itemsRecyclerView.setHasFixedSize(true);
@@ -84,14 +97,15 @@ public class CartActivity extends AppCompatActivity {
         retrofitApiInterface.createNewOrder(firebaseAuth.getUid(), itemArrayList).enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
-                if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
-                if (response.body()!=null) postOrderCreation(response.body());
-                else Snackbar.make(itemsRecyclerView, "There has been an error requesting a new order. Please try again later :(", Snackbar.LENGTH_LONG).show();
+                if (materialDialog != null && materialDialog.isShowing()) materialDialog.dismiss();
+                if (response.body() != null) postOrderCreation(response.body());
+                else
+                    Snackbar.make(itemsRecyclerView, "There has been an error requesting a new order. Please try again later :(", Snackbar.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<Order> call, Throwable t) {
-                if (materialDialog!=null && materialDialog.isShowing()) materialDialog.dismiss();
+                if (materialDialog != null && materialDialog.isShowing()) materialDialog.dismiss();
                 Snackbar.make(itemsRecyclerView, t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
@@ -112,8 +126,9 @@ public class CartActivity extends AppCompatActivity {
         @Override
         protected Double doInBackground(ArrayList<Item>... arrayLists) {
             double total = 0;
-            for (Item item: arrayLists[0]) total += (item.getPrice()-(item.getDiscountPercentage()*item.getPrice())) * item.getQuantity();
-            total += (Constants.DELIVERY_CHARGE_PERCENTAGE*total) + total;
+            for (Item item : arrayLists[0])
+                total += (item.getPrice() - (item.getDiscountPercentage() * item.getPrice())) * item.getQuantity();
+            total += (Constants.DELIVERY_CHARGE_PERCENTAGE * total) + total;
             rawTotal = total;
             return total;
         }
@@ -128,7 +143,7 @@ public class CartActivity extends AppCompatActivity {
 
     @OnClick(R.id.cartCheckoutFab)
     public void onCheckoutButtonPress() {
-        if (rawTotal==0) {
+        if (rawTotal == 0) {
             Snackbar.make(itemsRecyclerView, "You have no items in your cart to checkout :(", Snackbar.LENGTH_LONG)
                     .addCallback(new Snackbar.Callback() {
                         @Override
@@ -140,7 +155,7 @@ public class CartActivity extends AppCompatActivity {
         } else {
             materialDialog = new MaterialDialog.Builder(CartActivity.this)
                     .title(R.string.app_name)
-                    .content("The amount payable is "+Double.toString(rawTotal)+".\nAre you sure you want to checkout?")
+                    .content("The amount payable is " + Double.toString(rawTotal) + ".\nAre you sure you want to checkout?")
                     .positiveText("YES")
                     .negativeText("NO")
                     .titleColor(Color.BLACK)

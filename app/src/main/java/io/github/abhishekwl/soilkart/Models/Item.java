@@ -14,7 +14,7 @@ public class Item implements Parcelable {
     @SerializedName("image") private String image;
     @SerializedName("price") private double price;
     @SerializedName("discount") private double discountPercentage;
-    private int quantity;
+    @SerializedName("quantity") private int quantity;
 
     public Item(String name, String category, String unit, String image, double price, double discountPercentage) {
         this.name = name;
