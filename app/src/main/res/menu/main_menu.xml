@@ -21,4 +21,7 @@
     <item
         android:id="@+id/menuItemSignOut"
         android:title="Sign Out" />
+    <item
+        android:title="About"
+        app:showAsAction="never" />
 </menu>

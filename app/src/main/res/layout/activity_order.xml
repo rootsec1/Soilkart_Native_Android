@@ -6,4 +6,17 @@
     android:orientation="vertical"
     tools:context=".Activities.OrdersActivity">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/ordersSwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ordersRecyclerView"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>

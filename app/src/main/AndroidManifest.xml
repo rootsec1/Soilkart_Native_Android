@@ -44,7 +44,14 @@
             android:name=".Activities.CartActivity"
             android:label="Cart"
             android:parentActivityName=".Activities.MainActivity" />
-        <activity android:name=".Activities.OrdersActivity" android:label="Orders" android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.OrdersActivity"
+            android:label="My Orders"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.AboutActivity"
+            android:label="About"
+            android:parentActivityName=".Activities.MainActivity" />
     </application>
 
 </manifest>
