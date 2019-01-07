@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY domain "http://192.168.2.8"><!ENTITY port "9999">]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY domain "http://192.168.2.6"><!ENTITY port "9999">]>
 
 <resources>
     <string name="app_name">Soilkart</string>
