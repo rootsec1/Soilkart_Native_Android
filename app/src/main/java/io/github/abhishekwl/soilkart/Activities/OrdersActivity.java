@@ -13,10 +13,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.github.abhishekwl.soilkart.Adapters.OrdersRecyclerViewAdapter;
 import io.github.abhishekwl.soilkart.Helpers.RetrofitApiClient;
 import io.github.abhishekwl.soilkart.Helpers.RetrofitApiInterface;
 import io.github.abhishekwl.soilkart.Models.Order;
@@ -31,14 +31,13 @@ public class OrdersActivity extends AppCompatActivity {
     RecyclerView ordersRecyclerView;
     @BindView(R.id.ordersSwipeRefreshLayout)
     SwipeRefreshLayout ordersSwipeRefreshLayout;
-    @BindString(R.string.base_server_url)
-    String baseServerUrl;
 
     private Unbinder unbinder;
     private FirebaseAuth firebaseAuth;
     private RetrofitApiInterface retrofitApiInterface;
     private MaterialDialog materialDialog;
     private ArrayList<Order> orderArrayList = new ArrayList<>();
+    private OrdersRecyclerViewAdapter ordersRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +46,31 @@ public class OrdersActivity extends AppCompatActivity {
 
         initializeComponents();
         initializeViews();
+        performNetworkRequest();
     }
 
     private void initializeComponents() {
         unbinder = ButterKnife.bind(OrdersActivity.this);
         firebaseAuth = FirebaseAuth.getInstance();
         retrofitApiInterface = RetrofitApiClient.getRetrofitClient(getApplicationContext()).create(RetrofitApiInterface.class);
+        ordersRecyclerViewAdapter = new OrdersRecyclerViewAdapter(orderArrayList);
     }
 
     private void initializeViews() {
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         ordersRecyclerView.setHasFixedSize(true);
         ordersRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        ordersRecyclerView.setAdapter(ordersRecyclerViewAdapter);
+        ordersSwipeRefreshLayout.setOnRefreshListener(this::performNetworkRequest);
     }
 
     private void performNetworkRequest() {
         retrofitApiInterface.getOrders(firebaseAuth.getUid()).enqueue(new Callback<ArrayList<Order>>() {
             @Override
             public void onResponse(Call<ArrayList<Order>> call, Response<ArrayList<Order>> response) {
-                orderArrayList = response.body();
+                orderArrayList.clear();
+                orderArrayList.addAll(response.body());
+                ordersRecyclerViewAdapter.notifyDataSetChanged();
             }
 
             @Override

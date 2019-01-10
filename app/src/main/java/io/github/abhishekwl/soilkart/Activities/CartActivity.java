@@ -123,14 +123,10 @@ public class CartActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private class ComputeGrandTotal extends AsyncTask<ArrayList<Item>, Void, Double> {
 
+        @SafeVarargs
         @Override
-        protected Double doInBackground(ArrayList<Item>... arrayLists) {
-            double total = 0;
-            for (Item item : arrayLists[0])
-                total += (item.getPrice() - (item.getDiscountPercentage() * item.getPrice())) * item.getQuantity();
-            total += (Constants.DELIVERY_CHARGE_PERCENTAGE * total) + total;
-            rawTotal = total;
-            return total;
+        protected final Double doInBackground(ArrayList<Item>... arrayLists) {
+            return Constants.computeGrandTotal(arrayLists[0]);
         }
 
         @SuppressLint("SetTextI18n")
